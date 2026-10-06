@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
-"""Generate the static GitHub Pages site from works.json.
+"""Generate the static GitHub Pages site from artwork.json.
 
-Run `python3 build_site.py` (needs Pillow) after editing works.json or the
-collections below, then commit the regenerated HTML and cropped images.
+artwork.json lists each section's works in display order, with title, year,
+medium, size and image files (in artwork/). Run `python3 build_site.py` (needs
+Pillow) after editing it or the crops below, then commit the regenerated HTML
+and cropped images.
 """
 import html
 import json
@@ -11,25 +13,7 @@ from pathlib import Path
 ROOT = Path(__file__).parent
 EMAIL = 'elsieambrose66@gmail.com'
 
-# Each collection lists its images in display order (files in artwork/).
-COLLECTIONS = [
-    {'slug': 'paintings', 'title': 'Paintings', 'cover': 'plate-038.jpeg',
-     'images': ['plate-037.jpeg', 'plate-016.jpeg', 'plate-010.jpeg',
-                'plate-014.jpeg', 'plate-036.jpeg', 'plate-034.jpeg',
-                'plate-038.jpeg', 'cloudscape.jpeg', 'plate-025.jpeg',
-                'plate-026.jpeg', 'plate-028.jpeg', 'plate-029.jpeg',
-                'plate-042.jpeg', 'plate-043.jpeg', 'plate-044.jpeg',
-                'plate-027.jpeg', 'plate-035.jpeg']},
-    {'slug': 'drawings', 'title': 'Drawings', 'cover': 'plate-045.jpeg',
-     'images': ['plate-055.jpeg', 'plate-056.jpeg', 'plate-057.jpeg',
-                'plate-017.jpeg', 'plate-018.jpeg', 'plate-019.jpeg',
-                'plate-020.jpeg', 'plate-022.jpeg', 'plate-023.jpeg',
-                'plate-001.jpeg', 'plate-039.jpeg', 'plate-040.jpeg',
-                'plate-041.jpeg', 'plate-045.jpeg', 'plate-053.jpeg']},
-    {'slug': 'sculptures', 'title': 'Sculptures', 'cover': 'plate-047.jpeg',
-     'images': ['plate-007.jpeg', 'plate-047.jpeg', 'plate-049.jpeg',
-                'plate-050.jpeg']},
-]
+COLLECTIONS = json.loads((ROOT / 'artwork.json').read_text())
 
 # Crop boxes as fractions of the original (left, top, right, bottom). Cropped
 # copies are written to artwork/cropped/; the originals are left untouched.
@@ -48,8 +32,6 @@ CROPS = {
     'plate-034.jpeg': (0.045, 0.035, 0.950, 0.955),
 }
 
-works = json.loads((ROOT / 'works.json').read_text())
-work_for = {Path(i['src']).name: w for w in works for i in w['images']}
 esc = html.escape
 
 
@@ -65,27 +47,34 @@ def crop(name):
         return 'cropped/' + name, out.width, out.height
 
 
+def image_info(name):
+    """Return (src, width, height) for an image, cropping it if listed in CROPS."""
+    if name in CROPS:
+        return crop(name)
+    from PIL import Image
+    with Image.open(ROOT / 'artwork' / name) as im:
+        return name, im.width, im.height
+
+
 def items_for(collection):
-    names = collection['images']
     items = []
-    for name in names:
-        work = work_for[name]
-        # Views are counted among this work's images shown in this collection.
-        siblings = [n for n in names if work_for[n] is work]
-        image = next(i for i in work['images'] if Path(i['src']).name == name)
-        src, width, height = name, image['width'], image['height']
-        if name in CROPS:
-            src, width, height = crop(name)
-        items.append({
-            'name': name,
-            'src': src,
-            'width': width,
-            'height': height,
-            'title': work['title'],
-            'description': work['description'],
-            'view': siblings.index(name) + 1,
-            'totalViews': len(siblings),
-        })
+    for work in collection['works']:
+        details = [d for d in (work['year'], work['medium'], work['size']) if d]
+        total = len(work['images'])
+        for view, name in enumerate(work['images'], 1):
+            src, width, height = image_info(name)
+            items.append({
+                'name': name,
+                'src': src,
+                'width': width,
+                'height': height,
+                'title': work['title'],
+                'details': details,
+                'alt': ', '.join([work['title']] + ([work['medium']] if work['medium'] else [])),
+                'note': f'View {view} of {total}' if total > 1 else '',
+                'view': view,
+                'totalViews': total,
+            })
     return items
 
 
@@ -113,9 +102,8 @@ def page(path, title, body, depth):
     target.write_text(out)
 
 
-def caption_note(item):
-    views = f' · View {item["view"]} of {item["totalViews"]}' if item['totalViews'] > 1 else ''
-    return 'Provisional title' + views
+def details_html(item):
+    return '<br>'.join(esc(d) for d in item['details'])
 
 
 def build():
@@ -131,7 +119,7 @@ def build():
         covers.append(
             f'<a href="{c["slug"]}/" class="collection-cover"><div class="cover-image">'
             f'<img src="{cover["src"]}" width="{cover["width"]}" height="{cover["height"]}" '
-            f'alt="{esc(cover["description"])}"></div><h2>{esc(c["title"])}</h2></a>')
+            f'alt="{esc(cover["alt"])}"></div><h2>{esc(c["title"])}</h2></a>')
     page('artwork/index.html', 'Artwork — Elsie Ambrose',
          '<section class="artwork-index"><h1 class="sr-only">Artwork</h1>'
          f'<div class="collection-grid">{"".join(covers)}</div></section>', 1)
@@ -152,10 +140,10 @@ def build():
             '<section class="collection-page" data-viewer>'
             f'<div class="collection-heading"><a class="label" href="../">All artwork</a><h1>{esc(c["title"])}</h1></div>'
             f'<div class="large-artwork"><img class="collection-art" src="../{first["src"]}" '
-            f'width="{first["width"]}" height="{first["height"]}" alt="{esc(first["description"])}"></div>'
+            f'width="{first["width"]}" height="{first["height"]}" alt="{esc(first["alt"])}"></div>'
             '<div class="painting-caption"><div aria-live="polite" aria-atomic="true">'
-            f'<h2 data-title>{esc(first["title"])}</h2><p data-description>{esc(first["description"])}</p>'
-            f'<span class="caption-note" data-note>{esc(caption_note(first))}</span></div>'
+            f'<h2 data-title>{esc(first["title"])}</h2><p data-details>{details_html(first)}</p>'
+            f'<span class="caption-note" data-note>{esc(first["note"])}</span></div>'
             '<div class="sequence-controls">'
             '<button type="button" aria-label="Previous artwork" data-prev disabled>Previous</button>'
             f'<span data-counter>01 / {n:02d}</span>'

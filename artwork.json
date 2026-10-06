@@ -1,0 +1,306 @@
+[
+  {
+    "slug": "paintings",
+    "title": "Paintings",
+    "cover": "plate-038.jpeg",
+    "works": [
+      {
+        "title": "Ophelia",
+        "year": "2026",
+        "medium": "Oil paint, graphite, oil pastel, chalk pastel on canvas",
+        "size": "60 x 36 in.",
+        "images": [
+          "plate-029.jpeg"
+        ]
+      },
+      {
+        "title": "Let the Light in",
+        "year": "2023",
+        "medium": "Oil on canvas",
+        "size": "36 x 48 in.",
+        "images": [
+          "plate-038.jpeg"
+        ]
+      },
+      {
+        "title": "Untitled",
+        "year": "2025",
+        "medium": "Oil paint on canvas",
+        "size": "11 x 14 in.",
+        "images": [
+          "plate-044.jpeg"
+        ]
+      },
+      {
+        "title": "Untitled",
+        "year": "2024–2025",
+        "medium": "Oil paint on canvas",
+        "size": "38 x 30 in.",
+        "images": [
+          "plate-034.jpeg"
+        ]
+      },
+      {
+        "title": "Listeners of the Stone Service",
+        "year": "2026",
+        "medium": "Oil paint on canvas",
+        "size": "11 x 14 in.",
+        "images": [
+          "plate-027.jpeg"
+        ]
+      },
+      {
+        "title": "Light of the Stone Service",
+        "year": "2026",
+        "medium": "Oil paint, graphite, oil pastel, chalk pastel on canvas",
+        "size": "11 x 14 in.",
+        "images": [
+          "plate-028.jpeg"
+        ]
+      },
+      {
+        "title": "Protectors of the Stone Service",
+        "year": "2026",
+        "medium": "Oil paint, graphite, oil pastel, chalk pastel on canvas",
+        "size": "11 x 14 in.",
+        "images": [
+          "plate-026.jpeg"
+        ]
+      },
+      {
+        "title": "Navigation of the Stone Service",
+        "year": "2026",
+        "medium": "Oil paint, graphite, oil pastel, chalk pastel on canvas",
+        "size": "11 x 14 in.",
+        "images": [
+          "plate-025.jpeg"
+        ]
+      },
+      {
+        "title": "Guardian Angel",
+        "year": "2022",
+        "medium": "Oil on canvas",
+        "size": "30 x 40 in.",
+        "images": [
+          "cloudscape.jpeg"
+        ]
+      },
+      {
+        "title": "Life is Constant Unending Creation and Destruction Happening at Every Moment",
+        "year": "2024",
+        "medium": "Oil paint",
+        "size": "30 x 20 ft. (360 x 240 in.)",
+        "images": [
+          "plate-016.jpeg",
+          "plate-010.jpeg",
+          "plate-014.jpeg"
+        ]
+      },
+      {
+        "title": "Reincarnation",
+        "year": "2023",
+        "medium": "Oil on wood panel",
+        "size": "24 x 36 in.",
+        "images": [
+          "plate-036.jpeg"
+        ]
+      },
+      {
+        "title": "Nana’s Dress",
+        "year": "2024",
+        "medium": "Oil paint and chalk pastels on canvas",
+        "size": "20 x 24 in.",
+        "images": [
+          "plate-035.jpeg"
+        ]
+      },
+      {
+        "title": "Untitled",
+        "year": "2025",
+        "medium": "Oil paint on paper",
+        "size": "36 x 24 in.",
+        "images": [
+          "plate-042.jpeg"
+        ]
+      },
+      {
+        "title": "Creature of the Stone Service",
+        "year": "2025",
+        "medium": "Oil paint on canvas",
+        "size": "52 x 24 in.",
+        "images": [
+          "plate-043.jpeg"
+        ]
+      },
+      {
+        "title": "Phosphenes",
+        "year": "2023",
+        "medium": "Oil paint on canvas",
+        "size": "48 x 48 in.",
+        "images": [
+          "plate-037.jpeg"
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "drawings",
+    "title": "Drawings",
+    "cover": "plate-045.jpeg",
+    "works": [
+      {
+        "title": "Condition",
+        "year": "2025",
+        "medium": "Oil pastel and graphite on wood panel",
+        "size": "18 x 24 in.",
+        "images": [
+          "plate-045.jpeg"
+        ]
+      },
+      {
+        "title": "Song of the Stone Service",
+        "year": "",
+        "medium": "Graphite and image on paper",
+        "size": "11 x 14 in.",
+        "images": [
+          "plate-039.jpeg"
+        ]
+      },
+      {
+        "title": "Untitled",
+        "year": "2026",
+        "medium": "Graphite and image on paper",
+        "size": "11 x 28 in.",
+        "images": [
+          "plate-040.jpeg"
+        ]
+      },
+      {
+        "title": "Transportation Device",
+        "year": "2025",
+        "medium": "Graphite and image on paper",
+        "size": "11 x 14 in.",
+        "images": [
+          "plate-041.jpeg"
+        ]
+      },
+      {
+        "title": "Renewal",
+        "year": "2025",
+        "medium": "Graphite on paper",
+        "size": "22 x 30 in.",
+        "images": [
+          "plate-055.jpeg"
+        ]
+      },
+      {
+        "title": "Growth",
+        "year": "2025",
+        "medium": "Graphite on paper",
+        "size": "22 x 30 in.",
+        "images": [
+          "plate-057.jpeg"
+        ]
+      },
+      {
+        "title": "Breath",
+        "year": "2025",
+        "medium": "Graphite on paper",
+        "size": "22 x 30 in.",
+        "images": [
+          "plate-056.jpeg"
+        ]
+      },
+      {
+        "title": "Mourning Denied #1",
+        "year": "2025",
+        "medium": "Graphite and image on paper",
+        "size": "11 x 14 in.",
+        "images": [
+          "plate-022.jpeg"
+        ]
+      },
+      {
+        "title": "Mourning Denied #2",
+        "year": "2025",
+        "medium": "Graphite and image on paper",
+        "size": "11 x 14 in.",
+        "images": [
+          "plate-023.jpeg"
+        ]
+      },
+      {
+        "title": "Yielding Stone #1",
+        "year": "2025",
+        "medium": "Charcoal on paper",
+        "size": "18 x 24 in.",
+        "images": [
+          "plate-017.jpeg"
+        ]
+      },
+      {
+        "title": "Yielding Stone #2",
+        "year": "2025",
+        "medium": "Charcoal on paper",
+        "size": "18 x 24 in.",
+        "images": [
+          "plate-018.jpeg"
+        ]
+      },
+      {
+        "title": "Yielding Stone #3",
+        "year": "2025",
+        "medium": "Charcoal on paper",
+        "size": "18 x 24 in.",
+        "images": [
+          "plate-019.jpeg"
+        ]
+      },
+      {
+        "title": "Yielding Stone #4",
+        "year": "2025",
+        "medium": "Charcoal on paper",
+        "size": "18 x 24 in.",
+        "images": [
+          "plate-020.jpeg"
+        ]
+      },
+      {
+        "title": "Rising form",
+        "year": "",
+        "medium": "",
+        "size": "",
+        "images": [
+          "plate-053.jpeg"
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "sculptures",
+    "title": "Sculptures",
+    "cover": "plate-047.jpeg",
+    "works": [
+      {
+        "title": "Unmonumental",
+        "year": "2025",
+        "medium": "Hand-cut paper, fishing wire",
+        "size": "96 x 96 x 96 in.",
+        "images": [
+          "plate-049.jpeg",
+          "plate-047.jpeg",
+          "plate-050.jpeg"
+        ]
+      },
+      {
+        "title": "Untitled",
+        "year": "2024",
+        "medium": "Ginkgo leaves, chicken wire, papier-mâché, wood, light",
+        "size": "66 x 60 x 16 in.",
+        "images": [
+          "plate-007.jpeg"
+        ]
+      }
+    ]
+  }
+]
