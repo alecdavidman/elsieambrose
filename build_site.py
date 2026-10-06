@@ -106,6 +106,14 @@ def details_html(item):
     return '<br>'.join(esc(d) for d in item['details'])
 
 
+def cv_text(text, italic_title):
+    """Escape a CV entry; with italic_title, italicize the part before the first comma."""
+    if not italic_title or ',' not in text:
+        return esc(text)
+    title, rest = text.split(',', 1)
+    return f'<em>{esc(title)}</em>,{esc(rest)}'
+
+
 def build():
     page('index.html', 'Elsie Ambrose — Artist',
          '<section class="home"><h1 class="sr-only">Elsie Ambrose</h1>'
@@ -164,7 +172,7 @@ def build():
     sections = []
     for section in json.loads((ROOT / 'cv.json').read_text()):
         rows = ''.join(
-            f'<li><span class="cv-year">{esc(e["year"])}</span><span>{esc(e["text"])}'
+            f'<li><span class="cv-year">{esc(e["year"])}</span><span>{cv_text(e["text"], section.get("italicTitles"))}'
             + (f'<span class="cv-note">{esc(e["note"])}</span>' if e.get('note') else '')
             + '</span></li>'
             for e in section['entries'])
