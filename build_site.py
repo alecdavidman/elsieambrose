@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Generate the static GitHub Pages site from works.json.
 
-Run `python3 build_site.py` after editing works.json or the collections below,
-then commit the regenerated HTML files.
+Run `python3 build_site.py` (needs Pillow) after editing works.json or the
+collections below, then commit the regenerated HTML and cropped images.
 """
 import html
 import json
@@ -11,35 +11,81 @@ from pathlib import Path
 ROOT = Path(__file__).parent
 EMAIL = 'elsieambrose66@gmail.com'
 
+# Each collection lists its images in display order (files in artwork/).
 COLLECTIONS = [
-    {'slug': 'paintings', 'title': 'Paintings', 'cover': 'plate-037.jpeg',
-     'plates': ['016', '004', '015', '026', '013', '017', '028']},
-    {'slug': 'drawings', 'title': 'Drawings', 'cover': 'plate-055.jpeg',
-     'plates': ['027', '005', '001', '002', '006', '007', '008', '009', '010',
-                '011', '012', '018', '019', '020', '021', '022', '023', '024']},
-    {'slug': 'sculptures', 'title': 'Sculptures', 'cover': 'plate-002.jpeg',
-     'plates': ['003', '014', '025']},
+    {'slug': 'paintings', 'title': 'Paintings', 'cover': 'plate-038.jpeg',
+     'images': ['plate-037.jpeg', 'plate-016.jpeg', 'plate-010.jpeg',
+                'plate-014.jpeg', 'plate-036.jpeg', 'plate-034.jpeg',
+                'plate-038.jpeg', 'cloudscape.jpeg', 'plate-025.jpeg',
+                'plate-026.jpeg', 'plate-028.jpeg', 'plate-029.jpeg',
+                'plate-042.jpeg', 'plate-043.jpeg', 'plate-044.jpeg',
+                'plate-027.jpeg', 'plate-035.jpeg']},
+    {'slug': 'drawings', 'title': 'Drawings', 'cover': 'plate-045.jpeg',
+     'images': ['plate-055.jpeg', 'plate-056.jpeg', 'plate-057.jpeg',
+                'plate-017.jpeg', 'plate-018.jpeg', 'plate-019.jpeg',
+                'plate-020.jpeg', 'plate-022.jpeg', 'plate-023.jpeg',
+                'plate-001.jpeg', 'plate-039.jpeg', 'plate-040.jpeg',
+                'plate-041.jpeg', 'plate-045.jpeg', 'plate-053.jpeg']},
+    {'slug': 'sculptures', 'title': 'Sculptures', 'cover': 'plate-047.jpeg',
+     'images': ['plate-007.jpeg', 'plate-047.jpeg', 'plate-049.jpeg',
+                'plate-050.jpeg']},
 ]
 
-works = {w['plate']: w for w in json.loads((ROOT / 'works.json').read_text())}
+# Crop boxes as fractions of the original (left, top, right, bottom). Cropped
+# copies are written to artwork/cropped/; the originals are left untouched.
+CROPS = {
+    'plate-057.jpeg': (0.020, 0.010, 0.965, 0.960),
+    'plate-022.jpeg': (0.035, 0.035, 0.960, 0.975),
+    'plate-023.jpeg': (0.050, 0.055, 0.950, 0.950),
+    'plate-027.jpeg': (0.010, 0.005, 0.990, 0.990),
+    'plate-025.jpeg': (0.010, 0.008, 0.982, 0.988),
+    'plate-026.jpeg': (0.012, 0.010, 0.978, 0.988),
+    'plate-028.jpeg': (0.022, 0.016, 0.940, 0.980),
+    'plate-042.jpeg': (0.040, 0.035, 0.965, 0.970),
+    'plate-043.jpeg': (0.006, 0.004, 0.982, 0.994),
+    'plate-044.jpeg': (0.018, 0.014, 0.982, 0.992),
+    'plate-017.jpeg': (0.030, 0.040, 0.960, 0.970),
+    'plate-034.jpeg': (0.045, 0.035, 0.950, 0.955),
+}
+
+works = json.loads((ROOT / 'works.json').read_text())
+work_for = {Path(i['src']).name: w for w in works for i in w['images']}
 esc = html.escape
 
 
+def crop(name):
+    """Write the cropped copy of an image; return (src, width, height)."""
+    from PIL import Image
+    with Image.open(ROOT / 'artwork' / name) as im:
+        W, H = im.size
+        l, t, r, b = CROPS[name]
+        out = im.crop((round(l * W), round(t * H), round(r * W), round(b * H)))
+        (ROOT / 'artwork' / 'cropped').mkdir(exist_ok=True)
+        out.save(ROOT / 'artwork' / 'cropped' / name, quality=90)
+        return 'cropped/' + name, out.width, out.height
+
+
 def items_for(collection):
+    names = collection['images']
     items = []
-    for plate in collection['plates']:
-        work = works[plate]
-        total = len(work['images'])
-        for view, image in enumerate(work['images'], 1):
-            items.append({
-                'src': Path(image['src']).name,
-                'width': image['width'],
-                'height': image['height'],
-                'title': work['title'],
-                'description': work['description'],
-                'view': view,
-                'totalViews': total,
-            })
+    for name in names:
+        work = work_for[name]
+        # Views are counted among this work's images shown in this collection.
+        siblings = [n for n in names if work_for[n] is work]
+        image = next(i for i in work['images'] if Path(i['src']).name == name)
+        src, width, height = name, image['width'], image['height']
+        if name in CROPS:
+            src, width, height = crop(name)
+        items.append({
+            'name': name,
+            'src': src,
+            'width': width,
+            'height': height,
+            'title': work['title'],
+            'description': work['description'],
+            'view': siblings.index(name) + 1,
+            'totalViews': len(siblings),
+        })
     return items
 
 
@@ -81,7 +127,7 @@ def build():
 
     covers = []
     for c in COLLECTIONS:
-        cover = next(i for i in items_for(c) if i['src'] == c['cover'])
+        cover = next(i for i in items_for(c) if i['name'] == c['cover'])
         covers.append(
             f'<a href="{c["slug"]}/" class="collection-cover"><div class="cover-image">'
             f'<img src="{cover["src"]}" width="{cover["width"]}" height="{cover["height"]}" '
