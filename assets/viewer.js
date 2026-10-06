@@ -5,7 +5,7 @@
   var items = JSON.parse(root.querySelector('[data-items]').textContent);
   var art = root.querySelector('.collection-art');
   var title = root.querySelector('[data-title]');
-  var desc = root.querySelector('[data-description]');
+  var details = root.querySelector('[data-details]');
   var note = root.querySelector('[data-note]');
   var counter = root.querySelector('[data-counter]');
   var prev = root.querySelector('[data-prev]');
@@ -22,11 +22,14 @@
     art.src = '../' + item.src;
     art.width = item.width;
     art.height = item.height;
-    art.alt = item.description + (item.totalViews > 1 ? ' — view ' + item.view : '');
+    art.alt = item.alt + (item.totalViews > 1 ? ' — view ' + item.view : '');
     title.textContent = item.title;
-    desc.textContent = item.description;
-    note.textContent = 'Provisional title' +
-      (item.totalViews > 1 ? ' · View ' + item.view + ' of ' + item.totalViews : '');
+    details.textContent = '';
+    item.details.forEach(function (line, k) {
+      if (k) details.appendChild(document.createElement('br'));
+      details.appendChild(document.createTextNode(line));
+    });
+    note.textContent = item.note;
     counter.textContent = pad(i + 1) + ' / ' + pad(items.length);
     prev.disabled = i === 0;
     next.disabled = i === items.length - 1;
