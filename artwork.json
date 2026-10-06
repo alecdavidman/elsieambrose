@@ -27,7 +27,9 @@
         "year": "2026",
         "medium": "Oil paint, graphite, oil pastel, chalk pastel on canvas",
         "size": "14 x 18 in.",
-        "images": []
+        "images": [
+          "new-08.jpeg"
+        ]
       },
       {
         "title": "Untitled",
@@ -135,7 +137,9 @@
         "year": "2026",
         "medium": "Oil paint on paper",
         "size": "30 x 20 in.",
-        "images": []
+        "images": [
+          "new-07.jpeg"
+        ]
       },
       {
         "title": "Creature of the Stone Service",
@@ -322,7 +326,8 @@
         "size": "24 x 70 in.",
         "images": [
           "new-04.jpeg",
-          "new-05.jpeg"
+          "new-05.jpeg",
+          "new-06.jpeg"
         ]
       },
       {
