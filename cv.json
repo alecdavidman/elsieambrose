@@ -34,8 +34,7 @@
       },
       {
         "year": "2024",
-        "text": "Fabricated Collisions, The Cooper Union, New York, NY",
-        "note": "Curated by Einat Imber"
+        "text": "Fabricated Collisions, The Cooper Union, New York, NY"
       },
       {
         "year": "2024",
@@ -45,7 +44,8 @@
         "year": "2024",
         "text": "Disparity: Minding the Gap, The Zora Foundation, Boston, MA"
       }
-    ]
+    ],
+    "italicTitles": true
   },
   {
     "heading": "Awards and Scholarships",
