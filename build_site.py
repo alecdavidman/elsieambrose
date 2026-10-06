@@ -161,9 +161,18 @@ def build():
          '<a href="https://www.instagram.com/elsieambrose/" target="_blank" rel="noopener noreferrer">'
          'Instagram / @elsieambrose</a></section>', 1)
 
+    sections = []
+    for section in json.loads((ROOT / 'cv.json').read_text()):
+        rows = ''.join(
+            f'<li><span class="cv-year">{esc(e["year"])}</span><span>{esc(e["text"])}'
+            + (f'<span class="cv-note">{esc(e["note"])}</span>' if e.get('note') else '')
+            + '</span></li>'
+            for e in section['entries'])
+        sections.append(f'<h2>{esc(section["heading"])}</h2><ul class="cv-list">{rows}</ul>')
     page('cv/index.html', 'CV — Elsie Ambrose',
-         '<section class="cv-page"><h1>CV</h1>'
-         '<p class="cv-empty">Curriculum vitae forthcoming.</p></section>', 1)
+         '<section class="cv-page"><h1>CV</h1>' + ''.join(sections)
+         + '<p class="cv-download"><a href="../assets/Elsie_Ambrose_CV.pdf">Download CV (PDF)</a></p>'
+         '</section>', 1)
 
 
 if __name__ == '__main__':
