@@ -1,0 +1,35 @@
+[
+  {
+    "heading": "Education",
+    "entries": [
+      {"year": "2028", "text": "The Cooper Union for the Advancement of Science and Art", "note": "New York, NY, BFA, GPA: 3.906"}
+    ]
+  },
+  {
+    "heading": "Solo Exhibition",
+    "entries": [
+      {"year": "2025", "text": "The Stone Service, The Myrna Loy, Helena, MT"}
+    ]
+  },
+  {
+    "heading": "Group Exhibitions",
+    "entries": [
+      {"year": "2026", "text": "End of Year Show, The Cooper Union, New York, NY"},
+      {"year": "2026", "text": "Interventions, The Cooper Union, New York, NY"},
+      {"year": "2025", "text": "End of Year Show, The Cooper Union, New York, NY"},
+      {"year": "2025", "text": "Bomb, The Cooper Union, New York, NY"},
+      {"year": "2025", "text": "Unmonumental, The Cooper Union, New York, NY"},
+      {"year": "2024", "text": "Fabricated Collisions, The Cooper Union, New York, NY", "note": "Curated by Einat Imber"},
+      {"year": "2024", "text": "Life is Constant, Walnut Hill School, Natick, MA"}
+    ]
+  },
+  {
+    "heading": "Awards and Scholarships",
+    "entries": [
+      {"year": "2024–2028", "text": "Edward Durbin Scholarship"},
+      {"year": "2024–2028", "text": "Innovator Scholarship"},
+      {"year": "2024–2028", "text": "Half Tuition Scholarship"},
+      {"year": "2024", "text": "New York Life Foundation Award"}
+    ]
+  }
+]
