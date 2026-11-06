@@ -164,10 +164,9 @@ def build():
 
     page('contact/index.html', 'Contact — Elsie Ambrose',
          '<section class="contact-page"><h1 class="sr-only">Contact</h1>'
-         '<p>For exhibitions, commissions, and collaborations:</p>'
          f'<a href="mailto:{EMAIL}">{EMAIL}</a>'
-         '<a href="https://www.instagram.com/elsieambrose/" target="_blank" rel="noopener noreferrer">'
-         'Instagram / @elsieambrose</a></section>', 1)
+         '<a href="https://www.instagram.com/els.ie.ambrose/" target="_blank" rel="noopener noreferrer">'
+         'Instagram / @els.ie.ambrose</a></section>', 1)
 
     sections = []
     for section in json.loads((ROOT / 'cv.json').read_text()):
