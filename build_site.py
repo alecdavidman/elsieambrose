@@ -56,6 +56,22 @@ def image_info(name):
         return name, im.width, im.height
 
 
+FAVICON_SOURCE = 'cloudscape.jpeg'
+FAVICON_BOX = (1500, 250, 2350, 1100)  # the golden break in the clouds
+
+
+def favicons():
+    """Write favicon.ico, favicon-192.png and apple-touch-icon.png to the repo root."""
+    from PIL import Image
+    with Image.open(ROOT / 'artwork' / FAVICON_SOURCE) as im:
+        square = im.convert('RGB').crop(FAVICON_BOX)
+    sized = {s: square.resize((s, s), Image.LANCZOS) for s in (16, 32, 48, 180, 192)}
+    sized[48].save(ROOT / 'favicon.ico', sizes=[(16, 16), (32, 32), (48, 48)],
+                   append_images=[sized[16], sized[32]])
+    sized[192].save(ROOT / 'favicon-192.png', optimize=True)
+    sized[180].save(ROOT / 'apple-touch-icon.png', optimize=True)
+
+
 def items_for(collection):
     items = []
     for work in collection['works']:
@@ -88,6 +104,9 @@ def page(path, title, body, depth):
 <title>{esc(title)}</title>
 <meta name="description" content="Paintings, drawings, and sculptures by Elsie Ambrose, New York.">
 <link rel="stylesheet" href="{r}assets/site.css">
+<link rel="icon" href="{r}favicon.ico" sizes="any">
+<link rel="icon" href="{r}favicon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="{r}apple-touch-icon.png">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -115,6 +134,7 @@ def cv_text(text, italic_title):
 
 
 def build():
+    favicons()
     page('index.html', 'Elsie Ambrose — Artist',
          '<section class="home"><h1 class="sr-only">Elsie Ambrose</h1>'
          '<img class="home-art" src="artwork/cloudscape.jpeg" '
